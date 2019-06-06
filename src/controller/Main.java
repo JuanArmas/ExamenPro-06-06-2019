@@ -29,10 +29,10 @@ public class Main {
 		// 1.1 DESCOMENTAR, CODIGO FUNCIONAL
 			// ejercicios.insertaVehiculos(rutaVehiculos);
 		
-		// 1.2 DESCOMENTAR, CODIGO FUNCIONAL
-			//
-		HashMap<String, Vehiculo> algo = ejercicios.crearMapaVehiculos(rutaVehiculos);
-		System.out.println(algo);
+		// 1.2 
+			
+		HashMap<String, Vehiculo> mapaVehiculos = ejercicios.crearMapaVehiculos(rutaVehiculos);
+		System.out.println(mapaVehiculos);
 		
 		/*******************LLAMADAS EJERCICIO 2******************************/
 		// 2.1- DESCOMENTAR, CODIGO FUNCIONAL
@@ -42,7 +42,8 @@ public class Main {
 		//2.2-DESCOMENTAR, CODIGO FUNCIONAL
 			// HashMap<Cuenta, ArrayList<Movimiento>> movimientos = ejercicios.listadoMovimientos();
 			// System.out.println(movimientos);
-		//2.3-
+		
+		//2.3-CODIGO INCONCLUSO
 			
 		
 		System.out.println("fin del programa");
