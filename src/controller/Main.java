@@ -15,6 +15,7 @@ import java.util.Set;
 
 import model.Cuenta;
 import model.Movimiento;
+import model.Vehiculo;
 
 
 public class Main {
@@ -23,29 +24,31 @@ public class Main {
 		Main ejercicios = new Main();
 		String rutaVehiculos = "ficheros/vehiculos.csv";
 		
-		/*******************EJERCICIO 1******************************/
-		// 1.1
+		/*******************LLAMADAS EJERCICIO 1******************************/
+		// 1.1 DESCOMENTAR, CODIGO FUNCIONAL
 			// ejercicios.insertaVehiculos(rutaVehiculos);
+		// 1.2
+			//
 		
-		/*******************EJERCICIO 2******************************/
-		// 2.1-
+		System.out.println();
+		
+		/*******************LLAMADAS EJERCICIO 2******************************/
+		// 2.1- DESCOMENTAR, CODIGO FUNCIONAL
 			// HashMap<Integer, Cuenta> mapaCuentas = ejercicios.cuentas();
 			// System.out.println(mapaCuentas);
-		//2.2-
+		
+		//2.2-DESCOMENTAR, CODIGO FUNCIONAL
 			// HashMap<Cuenta, ArrayList<Movimiento>> movimientos = ejercicios.listadoMovimientos();
 			// System.out.println(movimientos);
 		//2.3-
 			
-		/*******************EJERCICIO 3******************************/
-		
-		
-		
 		
 		System.out.println("fin del programa");
 		System.exit(0);
 
 	}
-	/*******************EJERCICIO 1******************************/
+	
+	/*******************INICIO EJERCICIO 1******************************/
 // 1.1- crear tabla vehiculos
 	public void insertaVehiculos(String rutaVehiculos) {
 		try {
@@ -61,7 +64,7 @@ public class Main {
 				String nifPropietario = campos[1];
 				String matricula = campos[2];
 				char estado = campos[3].charAt(0);
-				float precio = Float.parseFloat(campos[4]);
+				int precio = Integer.parseInt(campos[4]);
 				String fechaMatricula = campos[5];
 				
 				String sql = "insert into vehiculos(codigo,matricula,fecha,estado,precio,nif) values";
@@ -82,9 +85,71 @@ public class Main {
 		}
 	}
 	
-	// 1.2- Obtener listado vehiculos
+	// 1.2- Obtener un listado en el que aparezcan los vehiculos pertenecientes a cada propietario
+	
+	public HashMap<String, Vehiculo> crearMapaEquipos(String rutaFichero) {
+		try {
+			BufferedReader fichero;
+			fichero = new BufferedReader(new FileReader(rutaFichero));
+			String registro;
+			Vehiculo vehiculo = null;
+			HashMap<String, Vehiculo> equipos = new HashMap<String, Vehiculo>();
+			while ((registro = fichero.readLine()) != null) {
+				String[] campos = registro.split("#");
+				//codigo,matricula,fecha,estado,precio,nif
+				int codigo = Integer.parseInt(campos[0]);
+				String matricula = campos[1];
+				String fecha = campos[2];
+				char estado = campos[3].charAt(0);
+				int precio = Integer.parseInt(campos[4]);
+				String nif = campos[5];
+				equipos.put(nif, vehiculo);
+			}
+			fichero.close();
+			System.out.println("Fin de la lectura del fichero");
+			return equipos;
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("IO Excepcion");
+		}
+		return null;
+	}
+	
+/* Codigo NO FUNCIONAL
+	public ArrayList<Vehiculo> listadoVehiculos(){
+		ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
+		try {
+			BaseDatos bd = new BaseDatos("localhost:3306",  "vehiculos", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			String sql = "select * from vehiculos order by nif";
+			ResultSet rS = stmt.executeQuery(sql);
+			while(rS.next()) { 
+				Vehiculo unVehiculo = new Vehiculo();
+				unVehiculo.setCodigo(rS.getInt("codigo"));
+				unVehiculo.setMatricula(rS.getString("matricula"));
+				unVehiculo.setFechaMatricula(rS.getString("fecha"));
+				unVehiculo.setEstado((char)rS.getInt("estado"));
+				unVehiculo.setPrecio(rS.getInt("precio"));			
+				unVehiculo.setNifPropietario(rS.getString("nif"));							
+				listaVehiculos.add(unVehiculo);			
+			}			
+			rS.close();
+			stmt.close();
+			conexion.close();
+			return listaVehiculos;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+*/
 	
 	
+	/*******************INICIO EJERCICIO 2******************************/
 	// 2.1 Desarrollar un método que devuelva un objeto de la clase
 	// id, descripcion,saldo
 	public HashMap <Integer,Cuenta> cuentas(){

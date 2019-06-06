@@ -5,10 +5,10 @@ public class Vehiculo {
 	private String nifPropietario;
 	private String matricula;
 	private char estado;
-	private float precio;
+	private int precio;
 	private String fechaMatricula;
 	
-	public Vehiculo(int codigo, String nifPropietario, String matricula, char estado, float precio,
+	public Vehiculo(int codigo, String nifPropietario, String matricula, char estado, int precio,
 			String fechaMatricula) {
 		super();
 		this.codigo = codigo;
@@ -59,7 +59,7 @@ public class Vehiculo {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 
