@@ -1,0 +1,13 @@
+public class Cuenta {
+	private int id;
+	private String descripcion;
+	private float saldo;
+}
+
+public class Movimiento {
+	private int id;
+	private int idCta;
+	private String fecha;
+	private String descripcion;
+	private float importe;
+}
