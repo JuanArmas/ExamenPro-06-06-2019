@@ -25,7 +25,7 @@ public class Main {
 		
 		/*******************EJERCICIO 1******************************/
 		// 1.1
-			ejercicios.insertaVehiculos(rutaVehiculos);
+			// ejercicios.insertaVehiculos(rutaVehiculos);
 		
 		/*******************EJERCICIO 2******************************/
 		// 2.1-
