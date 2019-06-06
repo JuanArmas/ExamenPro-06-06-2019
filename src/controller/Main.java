@@ -18,6 +18,7 @@ import model.Movimiento;
 import model.Vehiculo;
 
 
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -27,10 +28,11 @@ public class Main {
 		/*******************LLAMADAS EJERCICIO 1******************************/
 		// 1.1 DESCOMENTAR, CODIGO FUNCIONAL
 			// ejercicios.insertaVehiculos(rutaVehiculos);
-		// 1.2
-			//
 		
-		System.out.println();
+		// 1.2 DESCOMENTAR, CODIGO FUNCIONAL
+			//
+		HashMap<String, Vehiculo> algo = ejercicios.crearMapaVehiculos(rutaVehiculos);
+		System.out.println(algo);
 		
 		/*******************LLAMADAS EJERCICIO 2******************************/
 		// 2.1- DESCOMENTAR, CODIGO FUNCIONAL
@@ -87,27 +89,35 @@ public class Main {
 	
 	// 1.2- Obtener un listado en el que aparezcan los vehiculos pertenecientes a cada propietario
 	
-	public HashMap<String, Vehiculo> crearMapaEquipos(String rutaFichero) {
+	public HashMap<String, Vehiculo> crearMapaVehiculos(String rutaFichero) {
 		try {
 			BufferedReader fichero;
 			fichero = new BufferedReader(new FileReader(rutaFichero));
 			String registro;
 			Vehiculo vehiculo = null;
-			HashMap<String, Vehiculo> equipos = new HashMap<String, Vehiculo>();
+			HashMap<String, Vehiculo> vehiculos = new HashMap<String, Vehiculo>();
 			while ((registro = fichero.readLine()) != null) {
-				String[] campos = registro.split("#");
+				String[] campos = registro.split("&&");
 				//codigo,matricula,fecha,estado,precio,nif
 				int codigo = Integer.parseInt(campos[0]);
 				String matricula = campos[1];
-				String fecha = campos[2];
+				String fechaMatricula = campos[2];
 				char estado = campos[3].charAt(0);
 				int precio = Integer.parseInt(campos[4]);
-				String nif = campos[5];
-				equipos.put(nif, vehiculo);
+				String nifPropietario = campos[5];
+			
+				if(!vehiculos.containsKey(nifPropietario)) {
+					vehiculo = new Vehiculo(codigo, nifPropietario, matricula, estado, precio, fechaMatricula);
+					vehiculos.put(nifPropietario,vehiculo);	
+				}else {
+					vehiculos.put(nifPropietario,vehiculo);	
+				}
+				
+				
 			}
 			fichero.close();
 			System.out.println("Fin de la lectura del fichero");
-			return equipos;
+			return vehiculos;
 		} catch (FileNotFoundException excepcion) {
 			System.out.println("fichero no encontrado");
 		} catch (IOException e) {
@@ -116,7 +126,7 @@ public class Main {
 		return null;
 	}
 	
-/* Codigo NO FUNCIONAL
+/* Codigo NO FUNCIONAL INTENTO DE ACCESO DESD BBDD
 	public ArrayList<Vehiculo> listadoVehiculos(){
 		ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 		try {
@@ -232,7 +242,7 @@ public class Main {
 		
 		Set<Integer> clavesCuentas = mapaCuentas.keySet();
 		Set<Cuenta> clavesMovimientos = movimientos.keySet();	
-		for( Integer numCuenta : clavesCuentas) {
+		for(Integer numCuenta : clavesCuentas) {
 			Cuenta saldoCuenta = mapaCuentas.get(numCuenta);
 			for(Cuenta numCuentaMovimiento: clavesMovimientos) {
 				 ArrayList<Movimiento> listaMovimientos = movimientos.get(numCuentaMovimiento);
