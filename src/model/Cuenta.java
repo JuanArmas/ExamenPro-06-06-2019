@@ -1,6 +1,6 @@
 package model;
 
-public class Cuenta {
+public class Cuenta implements Comparable<Cuenta>{
 	private int id;
 	private String descripcion;
 	private float saldo;
@@ -37,6 +37,18 @@ public class Cuenta {
 	@Override
 	public String toString() {
 		return "Cuenta [id=" + id + ", descripcion=" + descripcion + ", saldo=" + saldo + "]";
+	}
+
+	@Override
+	public int compareTo(Cuenta o) {
+		if(this.id < o.id) {
+			return -1;
+		}
+		
+		if(this.id > o.id) {
+			return 1;
+		}
+		return 0;
 	}
 	
 }

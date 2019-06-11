@@ -1,5 +1,6 @@
 package model;
 
+
 public class Movimiento {
 
 	private int id;
@@ -66,5 +67,6 @@ public class Movimiento {
 		return "Movimiento [id=" + id + ", idcta=" + idcta + ", fecha=" + fecha + ", descripcion=" + descripcion
 				+ ", importe=" + importe + "]";
 	}
+
 	
 }
